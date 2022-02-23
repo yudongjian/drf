@@ -41,7 +41,7 @@ class Migration(migrations.Migration):
                 ('category', models.IntegerField(choices=[(1, 'Python'), (2, 'Go'), (3, 'Linux')], verbose_name='图书的类别')),
                 ('pub_time', models.DateField(verbose_name='图书的出版日期')),
                 ('author', models.ManyToManyField(to='student.Author')),
-                ('publisher', models.ForeignKey(on_delete=None, to='student.Publisher')),
+                ('publisher', models.ForeignKey(on_delete=models.DO_NOTHING, to='student.Publisher')),
             ],
             options={
                 'verbose_name_plural': '01-图书表',
