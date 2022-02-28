@@ -2,6 +2,8 @@ from rest_framework import serializers
 # Create your views here.
 from .models import Book
 
+
+# 序列化器的基本类
 class BookSerializer(serializers.Serializer):
     def check_fun1(self, data):
         return data
@@ -44,3 +46,11 @@ class BookSerializer(serializers.Serializer):
         instance.category = validated_data.get('category')
         instance.save()
         return instance
+
+
+# 序列化器的增强类
+class BookModelSerialize(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = "__all__"
+

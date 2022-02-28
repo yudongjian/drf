@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .myserializer import BookSerializer
+from .myserializer import BookModelSerialize
 from django.views import View
 from student.models import Book
 from django.http.response import JsonResponse
@@ -52,8 +53,8 @@ class BookViews(View):
         return JsonResponse(book.data, safe=False)
 
     # 更新数据
-    def get(self, request):
-        now_id = 10
+    def get4(self, request):
+        now_id = 2
         mydict = {
             "title": "石头记",
             "category": "小说",
@@ -69,3 +70,9 @@ class BookViews(View):
         serializer.save()
         print(serializer.data)
         return JsonResponse(serializer.data)
+
+    def get(self, request):
+        Books = Book.objects.all()
+        serialize = BookModelSerialize(Books, many=True)
+        print(serialize.data)
+        return JsonResponse(serialize.data, safe=False)
