@@ -16,8 +16,21 @@ Including another URLconf
 
 from django.urls import path
 
-from .views import StudentView
+from .views import StudentView, StudentList, StudentInfo, StudentListCreateAPIView, StudentRetrieveUpdateDestroyAPIView, StudentModelViewSet
 urlpatterns = [
     path('s1/', StudentView.as_view()),
+    path('s2/', StudentList.as_view()),
+    path('s3/<int:index>/', StudentInfo.as_view()),
+    path('s4/', StudentListCreateAPIView.as_view()),
+    path('s4/<int:pk>/', StudentRetrieveUpdateDestroyAPIView.as_view()),
+    path('s5/', StudentModelViewSet.as_view({"get": "list", "post": "create"})),
+    path('s5/<int:pk>/', StudentModelViewSet.as_view({"get": "retrieve", "put":"update", "delete": "destroy"})),
 
 ]
+
+# 路由集类，可配合视图集类使用，更为的方便
+# DefaultRouter 开发调试使用  SimpleRouter 上线应用使用
+from rest_framework.routers import DefaultRouter, SimpleRouter
+router = DefaultRouter()
+router.register("s6", StudentModelViewSet, "s7")
+urlpatterns += router.urls

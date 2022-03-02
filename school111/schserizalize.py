@@ -19,19 +19,10 @@ class LearntModelSerialize(serializers.ModelSerializer):
         fields = ["cname", "sno"]
 
 
-class StudentLearnModelSerialize(serializers.ModelSerializer):
-    learn1 = LearntModelSerialize(many=True, read_only=True)
-    print(learn1)
-    class Meta:
-        model = Student
-        fields = ["sno", "sname"]
-
-
 class Student2ModelSerizalize(serializers.ModelSerializer):
     sname = serializers.StringRelatedField(many=True)
     class Meta:
         model = learn
-        # fields = ["id", "sname", "cname"]
         fields = "__all__"
         depth = 1
 

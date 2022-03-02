@@ -15,5 +15,5 @@ class Teacher(models.Model):
 
 
 class learn(models.Model):
-    sno = models.ForeignKey('Student', to_field='sno', on_delete=models.DO_NOTHING)
+    sno = models.ForeignKey('Student', to_field='sno', on_delete=models.CASCADE)
     cname = models.CharField(max_length=20, default='')
