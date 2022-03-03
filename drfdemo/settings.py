@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'student.apps.StudentConfig',
     'school111',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +127,29 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+REST_FRAMEWORK = {
+
+    #  权限 英文都很简单朴素
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ],
+    # #  用户认证
+    # 'DEFAULT_AUTHENTICATION_CLASSES': [
+    #     'rest_framework.authentication.BasicAuthentication',
+    #     'rest_framework.authentication.SessionAuthentication',
+    # ],
+    # 限流 类
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+
+    # 限流 频率
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '5/hour',
+        'user': '1000/day'
+    },
+    # 过滤类
+    # 'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+
+}

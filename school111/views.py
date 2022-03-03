@@ -106,8 +106,35 @@ class StudentRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
 
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.authentication import SessionAuthentication
+# 用户权限， 管理员权限， 非用户only read
+from rest_framework.permissions import IsAdminUser, IsAuthenticated, IsAuthenticatedOrReadOnly
+from drfdemo.MyPerMIssion import IsHavePermission
+from rest_framework.throttling import AnonRateThrottle,UserRateThrottle
+
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import OrderingFilter
+
 class StudentModelViewSet(ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentModelSerialize
+
+    """
+       登录 和 权限 管理  （from drf官网）
+       1    访问和权限控制都可以在settin文件中设置全局所用的类
+       2    也可以在视图类中设置身份验证策略      
+    """
     # authentication_classes 是一个列表，默认是SessionAuthentication
     authentication_classes = [SessionAuthentication, ]
+
+    # permission_classes = [IsAuthenticatedOrReadOnly, IsHavePermission, ]
+    # permission_classes = [] # 取消认证方式
+
+    # 限流
+    # throttle_classes = 限流类
+    # throttle_scope 限流
+
+    # 过滤            排序
+    # 注意过滤和排序来自不同的包！！！！
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filter_fields = ['sname']
+    ordering_fields = '__all__'
